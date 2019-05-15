@@ -44,14 +44,12 @@ main(int argc, char* argv[])
   consumerHelper.SetPrefix("/prefix/req");
   consumerHelper.SetAttribute("Frequency", StringValue("1"));
   auto apps = consumerHelper.Install(nodes.Get(0));
-  apps.Stop(Seconds(10.0));
+  apps.Stop(Seconds(3.0));
 
   //Producer
   ndn::AppHelper app2("Demo_Producer");
   app2.Install(nodes.Get(2)); // last node
-  
-
-  
+ 
 
   Simulator::Stop(Seconds(20.0));
 
@@ -71,3 +69,4 @@ main(int argc, char* argv[])
 {
   return ns3::main(argc, argv);
 }
+
