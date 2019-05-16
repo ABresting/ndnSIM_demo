@@ -18,6 +18,16 @@ public:
   void
   OnInterest(std::shared_ptr<const ndn::Interest> interest);
 
+private:
+  void
+  SendInterest(std::string prefix);
+
+  void
+  AddPrefix(std::string prefix);
+
+  void
+  AddRoute(std::string prefix);
+
 protected:
   // inherited from Application base class.
   virtual void
