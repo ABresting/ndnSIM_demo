@@ -35,23 +35,27 @@ main(int argc, char* argv[])
   ndnHelper.InstallAll();
 
   // Choosing forwarding strategy
-  ndn::StrategyChoiceHelper::Install(nodes.Get(1),"/prefix", "/localhost/nfd/strategy/best-route");
-  
+ // ndn::StrategyChoiceHelper::Install(nodes.Get(1),"/prefix", "/localhost/nfd/strategy/best-route");
 
   // Consumer
   ndn::AppHelper consumerHelper("ns3::ndn::ConsumerCbr");
   //using the prefix /prefix/req to represent the request for now
-  consumerHelper.SetPrefix("/prefix/req");
+  consumerHelper.SetPrefix("/prefix/update");
   consumerHelper.SetAttribute("Frequency", StringValue("1"));
   auto apps = consumerHelper.Install(nodes.Get(0));
-  apps.Stop(Seconds(3.0));
+  //Using p2p demo class
+  ndn::AppHelper p_2_p("P2P_Node");
+  p_2_p.Install(nodes.Get(0));
+
+  apps.Stop(Seconds(5.0));
+
 
   //Producer
-  ndn::AppHelper app2("Demo_Producer");
+  ndn::AppHelper app2("P2P_Node");
   app2.Install(nodes.Get(2)); // last node
  
 
-  Simulator::Stop(Seconds(20.0));
+  Simulator::Stop(Seconds(5.0));
 
   AnimationInterface anim ("anim1.xml");
 
@@ -69,4 +73,3 @@ main(int argc, char* argv[])
 {
   return ns3::main(argc, argv);
 }
-
